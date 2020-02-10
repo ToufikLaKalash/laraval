@@ -7,11 +7,9 @@
             <div class="card">
                 <div class="card-header">Liste des utilisateurs enregistrés</div>
                 <div class="card-body">
-                    @if ($currentUser->admin == true)
-                        <div class="alert alert-dark">
-                            <a href="{{ route('admin') }}">Accéder à l'espace admin</a>
-                        </div>
-                    @endif
+                    <div class="alert alert-dark">
+                        <a href="{{ route('admin') }}">Accéder à l'espace admin</a>
+                    </div>
                     @foreach ($userList as $user)
                         <div class="alert alert-info">
                             <p>Surnom: {{ $user['name']  }} </p>

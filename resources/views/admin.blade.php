@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">Page d'administration</div>
                     <div class="card-body">
-                        @if($admin == true)
+                        @if($currentUser->admin == true)
                             @if(!isset($data))
                                 <form action="{{ route('admin') }}" method="post">
                                     @csrf
@@ -73,7 +73,25 @@
                                 </div>
                             @endif
                         @else
-                            <p>Vous n'êtes pas administrateur.</p>
+                            <div id="infos">
+                                <form action="{{ route('admin/modifself') }}" method="post">
+                                    @csrf
+                                    @method('POST')
+                                    <label for="name">Nom</label>
+                                    <input type="text" name="name" value="{{$currentUser['name']}}"><br>
+                                    <label for="firstname">Prénom</label>
+                                    <input type="text" name="firstname" value="{{$currentUser['firstname']}}"><br>
+                                    <label for="lastname">Nom de famille</label>
+                                    <input type="text" name="lastname" value="{{$currentUser['lastname']}}"><br>
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" value="{{$currentUser['email']}}"><br>
+                                    <label for="bio">Bio</label>
+                                    <input type="text" name="bio" value="{{$currentUser['bio']}}"><br>
+                                    <label for="password">Mot de passe</label>
+                                    <input type="password" name="password"><br>
+                                    <button type="submit" class="btn btn-success">Modifier</button>
+                                </form>
+                            </div>
                             <p><a href="{{ route('home') }}">Retourner à l'accueil</a></p>
                         @endif
                     </div>

@@ -21,4 +21,5 @@ Route::get('/admin', 'AdminController@log')->name('admin');
 Route::post('/admin', 'AdminController@post')->name('admin');
 Route::delete('/admin/delete', 'AdminController@delete')->name('admin/delete');
 Route::post('/admin/modify', 'AdminController@modify')->name('admin/modify');
+Route::post('/admin/modifself', 'AdminController@modifself')->name('admin/modifself');
 Route::post('/admin/add', 'AdminController@add')->name('admin/add');
