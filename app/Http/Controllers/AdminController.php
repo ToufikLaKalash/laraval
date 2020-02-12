@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class AdminController extends Controller{
     public function log(){
         $user = Auth::user();
-        return view('admin', ['userList' => User::all(), 'currentUser' => $user]);
+        return view('admin', ['userList' => User::all(), 'admin' => $user->admin]);
     }
 
     public function post(Request $request){
@@ -29,6 +29,14 @@ class AdminController extends Controller{
     }
 
     public function modifself(Request $request){
+		$user = User::where('email', $request['oldemail'])->first();
+		$user->name = $request['name'];
+		$user->firstname = $request['firstname'];
+		$user->lastname = $request['lastname'];
+		$user->email = $request['email'];
+		$user->bio = $request['bio'];
+		$user->password = hash('SHA512', $request['password']);
+		$user->save();
         return redirect("/home");
     }
 

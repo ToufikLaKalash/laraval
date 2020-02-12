@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">Page d'administration</div>
                     <div class="card-body">
-                        @if($currentUser->admin == true)
+                        @if($admin == true)
                             @if(!isset($data))
                                 <form action="{{ route('admin') }}" method="post">
                                     @csrf
@@ -23,12 +23,25 @@
                                 <h1>Informations</h1>
                                 @foreach(App\User::where('id', '=', $data['user'])->select('*')->get() as $info)
                                     <div id="infos">
-                                        <p>Vous avez choisi {{ $info['name'] }}</p>
-                                        <p>Prénom: {{ $info['firstname'] }}</p>
-                                        <p>Nom: {{ $info['lastname'] }}</p>
-                                        <p>Email: {{ $info['email'] }}</p>
-                                        <p>Bio: {{ $info['bio'] }}</p>
-                                    </div>
+                                <form action="{{ route('admin/modifself') }}" method="post">
+                                    @csrf
+                                    @method('POST')
+                                    <label for="name">Nom</label>
+                                    <input type="text" name="name" value="{{$info['name']}}"><br>
+                                    <label for="firstname">Prénom</label>
+                                    <input type="text" name="firstname" value="{{$info['firstname']}}"><br>
+                                    <label for="lastname">Nom de famille</label>
+                                    <input type="text" name="lastname" value="{{$info['lastname']}}"><br>
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" value="{{$info['email']}}"><br>
+                                    <label for="bio">Bio</label>
+                                    <input type="text" name="bio" value="{{$info['bio']}}"><br>
+                                    <label for="password">Mot de passe</label>
+                                    <input type="password" name="password"><br>
+									<input type="hidden" name="oldemail" value="{{$info['email']}}">
+                                    <button type="submit" class="btn btn-success">Modifier</button>
+                                </form>
+                            </div>
                                 @endforeach
                                 <h1>Compétences</h1>
                                 <div id="competences">
@@ -72,26 +85,6 @@
                                     </div>
                                 </div>
                             @endif
-                        @else
-                            <div id="infos">
-                                <form action="{{ route('admin/modifself') }}" method="post">
-                                    @csrf
-                                    @method('POST')
-                                    <label for="name">Nom</label>
-                                    <input type="text" name="name" value="{{$currentUser['name']}}"><br>
-                                    <label for="firstname">Prénom</label>
-                                    <input type="text" name="firstname" value="{{$currentUser['firstname']}}"><br>
-                                    <label for="lastname">Nom de famille</label>
-                                    <input type="text" name="lastname" value="{{$currentUser['lastname']}}"><br>
-                                    <label for="email">Email</label>
-                                    <input type="email" name="email" value="{{$currentUser['email']}}"><br>
-                                    <label for="bio">Bio</label>
-                                    <input type="text" name="bio" value="{{$currentUser['bio']}}"><br>
-                                    <label for="password">Mot de passe</label>
-                                    <input type="password" name="password"><br>
-                                    <button type="submit" class="btn btn-success">Modifier</button>
-                                </form>
-                            </div>
                             <p><a href="{{ route('home') }}">Retourner à l'accueil</a></p>
                         @endif
                     </div>
